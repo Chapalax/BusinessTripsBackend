@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users_data
     father_name TEXT                                           NOT NULL,
     grade       TEXT                                           NOT NULL,
     birth_date  TIMESTAMP                                      NOT NULL,
+    email       TEXT                                        NOT NULL,
     phone       VARCHAR(32)                                    NOT NULL,
     passport    TEXT                                           NOT NULL
 );

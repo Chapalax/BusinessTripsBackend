@@ -1,7 +1,5 @@
 CREATE SEQUENCE IF NOT EXISTS trips_seq;
 
-CREATE TYPE statuses AS ENUM ('CANCELED', 'CONFIRMED', 'WAITING');
-
 CREATE TABLE IF NOT EXISTS trips
 (
     id            BIGINT                                                   DEFAULT nextval('trips_seq') PRIMARY KEY,
@@ -12,8 +10,8 @@ CREATE TABLE IF NOT EXISTS trips
     end_date      TIMESTAMP                                       NOT NULL,
     destination   VARCHAR(32)                                     NOT NULL,
     goal          TEXT                                            NOT NULL,
-    status        statuses                                        NOT NULL DEFAULT 'WAITING',
+    status        VARCHAR(16)                                     NOT NULL DEFAULT 'WAITING',
     comment       TEXT
-    );
+);
 
 ALTER SEQUENCE trips_seq OWNED BY trips.id;

@@ -38,9 +38,12 @@ public class UserDataEntity {
     @Column(name = "grade")
     private String grade;
 
-    @NotEmpty
     @Column(name = "birth_date")
     private OffsetDateTime birthDate;
+
+    @NotEmpty
+    @Column(name = "email")
+    private String email;
 
     @NotEmpty
     @Column(name = "phone")

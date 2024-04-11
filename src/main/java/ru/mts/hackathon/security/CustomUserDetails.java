@@ -1,34 +1,32 @@
-package ru.mts.hackathon.configuration;
+package ru.mts.hackathon.security;
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.mts.hackathon.domain.entities.UserEntity;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Data
 public class CustomUserDetails implements UserDetails {
-    private UserEntity user;
+    private Long id;
+    private String username;
+    private String password;
+    private boolean enabled;
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(user.getRoles().split(", "))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return username;
     }
 
     @Override
@@ -48,6 +46,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEnabled();
+        return enabled;
     }
 }

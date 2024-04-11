@@ -25,8 +25,8 @@ public class UserEntity {
     private String password;
 
     @NotEmpty
-    @Column(name = "roles")
-    private String roles;
+    @Column(name = "role")
+    private String role;
 
     @Column(name = "enabled")
     private Boolean enabled;
