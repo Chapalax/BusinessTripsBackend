@@ -7,7 +7,7 @@ import ru.mts.hackathon.domain.entities.UserDataEntity;
 import java.util.Optional;
 
 @Repository
-public interface JpaDataUserRepository extends JpaRepository<DataUserRepository, Long> {
+public interface JpaDataUserRepository extends JpaRepository<UserDataEntity, Long> {
     Optional<UserDataEntity> findByUserId(Long userId);
     void update(UserDataEntity userDataEntity);
 }
