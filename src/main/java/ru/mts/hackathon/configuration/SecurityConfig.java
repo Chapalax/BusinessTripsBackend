@@ -1,16 +1,16 @@
 package ru.mts.hackathon.configuration;
 
-import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -30,16 +30,13 @@ public class SecurityConfig {
     }
 
     @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
+    }
+
+    @Bean
     public JdbcUserDetailsManager user(PasswordEncoder encoder) {
-        UserDetails admin = User.builder()
-                .username("login@gmail.com")
-                .password(encoder.encode("secret12345"))
-                .roles("ADMIN")
-                .authorities("USER")
-                .build();
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.createUser(admin);
-        return jdbcUserDetailsManager;
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
@@ -48,8 +45,25 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("bts/welcome").permitAll()
+                                .requestMatchers("bts/**").authenticated())
+                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .build();
+
+
+
+        /*http
                 .authorizeHttpRequests(
                         (authorize) -> authorize
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
@@ -57,8 +71,7 @@ public class SecurityConfig {
                                 .requestMatchers("/user").hasAuthority("USER")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
-        return http.build();
+        return http.build();*/
     }
 }

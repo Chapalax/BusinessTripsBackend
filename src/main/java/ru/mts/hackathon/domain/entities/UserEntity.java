@@ -14,16 +14,20 @@ public class UserEntity {
     @Column(name = "id")
     @SequenceGenerator(name = "u_seq", sequenceName = "users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "u_seq")
-    private long id;
+    private Long id;
 
     @NotEmpty
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @NotEmpty
     @Column(name = "password")
     private String password;
 
+    @NotEmpty
+    @Column(name = "roles")
+    private String roles;
+
     @Column(name = "enabled")
-    private boolean enabled;
+    private Boolean enabled;
 }
