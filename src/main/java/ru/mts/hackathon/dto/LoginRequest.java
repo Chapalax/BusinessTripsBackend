@@ -1,6 +1,6 @@
 package ru.mts.hackathon.dto;
 
-import org.hibernate.validator.constraints.URL;
+import jakarta.validation.constraints.Email;
 
-public record LoginRequest(@URL String username, String password) {
+public record LoginRequest(@Email String username, String password) {
 }

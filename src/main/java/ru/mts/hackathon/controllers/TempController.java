@@ -2,7 +2,6 @@ package ru.mts.hackathon.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,11 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class TempController {
-    @Autowired
-    private JpaUserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final JpaUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
     public String testToBD() {
         log.info("GET REQUEST");
         return "Test done!";
@@ -43,6 +40,22 @@ public class TempController {
         user.setEmail("max@gmail.com");
         user.setPhone("8521287863");
         user.setPassport("123456789");
+        userRepository.save(user);
+
+        user = new UserEntity();
+        user.setId(2L);
+        user.setUsername("user@gmail.com");
+        user.setPassword(passwordEncoder.encode("secret"));
+        user.setRole("USER");
+        user.setEnabled(true);
+        user.setFirstName("Ivan");
+        user.setLastName("Ivanov");
+        user.setFatherName("Ivanovich");
+        user.setGrade("Intern BPMN Developer");
+        user.setBirthDate(OffsetDateTime.now());
+        user.setEmail("ivan@gmail.com");
+        user.setPhone("842974592");
+        user.setPassport("0987654321");
         userRepository.save(user);
         return "Welcome to Hackathon";
     }

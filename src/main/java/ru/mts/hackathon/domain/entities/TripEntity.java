@@ -18,9 +18,9 @@ public class TripEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tr_seq")
     private long id;
 
-    @OneToOne
-    @JoinColumn(name="owner_id")
-    private UserEntity ownerId;
+    @NotEmpty
+    @Column(name = "owner_id")
+    private Long ownerId;
 
     @NotEmpty
     @Column(name = "boss_id")

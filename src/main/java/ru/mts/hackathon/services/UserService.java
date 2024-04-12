@@ -1,7 +1,7 @@
 package ru.mts.hackathon.services;
 
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.mts.hackathon.domain.entities.UserEntity;
@@ -34,7 +34,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean hasUserWithEmail(@URL String email) {
+    public boolean hasUserWithEmail(@Email String email) {
         return userRepository.existsByEmail(email);
     }
 
