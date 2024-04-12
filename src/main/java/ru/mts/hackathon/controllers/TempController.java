@@ -38,8 +38,8 @@ public class TempController {
         user.setGrade("Senior Ramus Developer");
         user.setBirthDate(OffsetDateTime.now());
         user.setEmail("max@gmail.com");
-        user.setPhone("8521287863");
-        user.setPassport("123456789");
+        user.setPhone("+73408627956");
+        user.setPassport("7415 445218");
         userRepository.save(user);
 
         user = new UserEntity();
@@ -54,8 +54,8 @@ public class TempController {
         user.setGrade("Intern BPMN Developer");
         user.setBirthDate(OffsetDateTime.now());
         user.setEmail("ivan@gmail.com");
-        user.setPhone("842974592");
-        user.setPassport("0987654321");
+        user.setPhone("+78523468555");
+        user.setPassport("7415 456123");
         userRepository.save(user);
         return "Welcome to Hackathon";
     }
