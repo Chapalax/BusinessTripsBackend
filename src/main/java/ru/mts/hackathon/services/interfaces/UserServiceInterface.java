@@ -1,5 +1,6 @@
 package ru.mts.hackathon.services.interfaces;
 
+import org.hibernate.validator.constraints.URL;
 import ru.mts.hackathon.domain.entities.UserEntity;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface UserServiceInterface {
     Optional<UserEntity> getUserByUsername(String username);
 
     boolean hasUserWithUsername(String username);
+
+    boolean hasUserWithEmail(@URL String email);
 
     boolean userIsEnabled(String username);
 

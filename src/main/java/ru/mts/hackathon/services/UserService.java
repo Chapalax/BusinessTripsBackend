@@ -1,6 +1,7 @@
 package ru.mts.hackathon.services;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.mts.hackathon.domain.entities.UserEntity;
@@ -30,6 +31,11 @@ public class UserService implements UserServiceInterface {
     @Override
     public boolean hasUserWithUsername(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean hasUserWithEmail(@URL String email) {
+        return userRepository.existsByEmail(email);
     }
 
     @Override

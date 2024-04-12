@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.OffsetDateTime;
 import java.util.Collection;
 
 @Data
@@ -12,6 +13,15 @@ public class CustomUserDetails implements UserDetails {
     private String username;
     private String password;
     private boolean enabled;
+    private String firstName;
+    private String lastName;
+    private String fatherName;
+    private String grade;
+    private OffsetDateTime birthDate;
+    private String email;
+    private String phone;
+    private String passport;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override

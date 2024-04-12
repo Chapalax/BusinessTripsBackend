@@ -20,7 +20,7 @@ public class TripEntity {
 
     @OneToOne
     @JoinColumn(name="owner_id")
-    private UserDataEntity ownerId;
+    private UserEntity ownerId;
 
     @NotEmpty
     @Column(name = "boss_id")

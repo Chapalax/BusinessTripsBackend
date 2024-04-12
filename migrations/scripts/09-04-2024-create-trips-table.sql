@@ -3,8 +3,8 @@ CREATE SEQUENCE IF NOT EXISTS trips_seq;
 CREATE TABLE IF NOT EXISTS trips
 (
     id            BIGINT                                                   DEFAULT nextval('trips_seq') PRIMARY KEY,
-    owner_id      BIGINT REFERENCES users_data (id) ON DELETE CASCADE  NOT NULL,
-    boss_id       BIGINT REFERENCES users_data (id) ON DELETE RESTRICT NOT NULL,
+    owner_id      BIGINT REFERENCES users (id) ON DELETE CASCADE  NOT NULL,
+    boss_id       BIGINT REFERENCES users (id) ON DELETE RESTRICT NOT NULL,
     creation_date TIMESTAMP                                       NOT NULL DEFAULT now(),
     start_date    TIMESTAMP                                       NOT NULL,
     end_date      TIMESTAMP                                       NOT NULL,

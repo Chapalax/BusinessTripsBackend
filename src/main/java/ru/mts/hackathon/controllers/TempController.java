@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.mts.hackathon.domain.entities.UserEntity;
 import ru.mts.hackathon.domain.repositories.JpaUserRepository;
 
+import java.time.OffsetDateTime;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -33,6 +35,14 @@ public class TempController {
         user.setPassword(passwordEncoder.encode("admin"));
         user.setRole("ADMIN");
         user.setEnabled(true);
+        user.setFirstName("Max");
+        user.setLastName("Berezhnoy");
+        user.setFatherName("Sergeevich");
+        user.setGrade("Senior Ramus Developer");
+        user.setBirthDate(OffsetDateTime.now());
+        user.setEmail("max@gmail.com");
+        user.setPhone("8521287863");
+        user.setPassport("123456789");
         userRepository.save(user);
         return "Welcome to Hackathon";
     }

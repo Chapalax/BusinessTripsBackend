@@ -33,6 +33,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         customUserDetails.setUsername(user.getUsername());
         customUserDetails.setPassword(user.getPassword());
         customUserDetails.setEnabled(user.getEnabled());
+        customUserDetails.setFirstName(user.getFirstName());
+        customUserDetails.setLastName(user.getLastName());
+        customUserDetails.setFatherName(user.getFatherName());
+        customUserDetails.setGrade(user.getGrade());
+        customUserDetails.setBirthDate(user.getBirthDate());
+        customUserDetails.setEmail(user.getEmail());
+        customUserDetails.setPhone(user.getPhone());
+        customUserDetails.setPassport(user.getPassport());
         customUserDetails.setAuthorities(authorities);
         return customUserDetails;
     }
