@@ -47,6 +47,7 @@ services:
     environment:
       - SERVER_PORT= 8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/bts
+      - APP_CORS_ALLOWED-ORIGINS=http://localhost:3000
     networks:
       - backend
 
