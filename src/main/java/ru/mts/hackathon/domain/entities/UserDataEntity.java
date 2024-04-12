@@ -38,7 +38,6 @@ public class UserDataEntity {
     @Column(name = "grade")
     private String grade;
 
-    @NotEmpty
     @Column(name = "birth_date")
     private OffsetDateTime birthDate;
 

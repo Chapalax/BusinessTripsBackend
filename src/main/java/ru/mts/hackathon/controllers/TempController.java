@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("bts")
+@RequestMapping("/bts")
 @Slf4j
 public class TempController {
     @Autowired
@@ -43,6 +43,7 @@ public class TempController {
         user.setRoles("ADMIN");
         user.setEnabled(true);
         userRepository.save(user);
+
         UserDataEntity dataUser=new UserDataEntity();
         dataUser.setId(1L);
         dataUser.setUserId(user);
@@ -54,6 +55,8 @@ public class TempController {
         dataUser.setPhone("99999999");
         dataUser.setPassport("1111111");
         jpaDataUserRepository.save(dataUser);
+
+
         return "Welcome to Hackathon";
     }
 }
