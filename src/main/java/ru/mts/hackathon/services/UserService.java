@@ -24,6 +24,11 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public List<UserEntity> getAllWithRole(String role) {
+        return userRepository.findAllByRole(role);
+    }
+
+    @Override
     public Optional<UserEntity> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

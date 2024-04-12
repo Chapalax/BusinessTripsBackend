@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface UserServiceInterface {
     List<UserEntity> getAllUsers();
 
+    List<UserEntity> getAllWithRole(String role);
+
     Optional<UserEntity> getUserByUsername(String username);
 
     boolean hasUserWithUsername(String username);

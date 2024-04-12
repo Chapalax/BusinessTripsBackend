@@ -9,11 +9,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.mts.hackathon.domain.entities.StatusEnum;
 import ru.mts.hackathon.domain.entities.TripEntity;
+import ru.mts.hackathon.domain.entities.UserEntity;
 import ru.mts.hackathon.dto.ChangeTripStatusDTO;
 import ru.mts.hackathon.dto.ListTripsResponse;
 import ru.mts.hackathon.dto.TripDTO;
+import ru.mts.hackathon.dto.UserDTO;
+import ru.mts.hackathon.mappers.intrefaces.MapperUserDTO;
 import ru.mts.hackathon.security.CustomUserDetails;
 import ru.mts.hackathon.services.interfaces.TripsServiceInterface;
+import ru.mts.hackathon.services.interfaces.UserServiceInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +27,26 @@ import static ru.mts.hackathon.configuration.SwaggerConfig.BASIC_AUTH_SECURITY_S
 
 @Slf4j
 @RestController
-@RequestMapping("/api/admin/trips")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final TripsServiceInterface tripsService;
+    private final UserServiceInterface userService;
+    private final MapperUserDTO mapperUserDTO;
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
-    @GetMapping
+    @GetMapping()
+    public ResponseEntity<List<UserDTO>> getAllAdmins() {
+        List<UserEntity> userEntities = userService.getAllWithRole("ADMIN");
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (UserEntity userEntity : userEntities) {
+            userDTOs.add(mapperUserDTO.toUserDTO(userEntity));
+        }
+        return ResponseEntity.ok(userDTOs);
+    }
+
+    @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
+    @GetMapping("/trips")
     public ResponseEntity<ListTripsResponse> getAdminTrips(@AuthenticationPrincipal CustomUserDetails currentUser) {
         List<TripEntity> tripsList = tripsService.getAllTripsByBossId(currentUser.getId());
         ArrayList<TripDTO> tripDTOArrayList = new ArrayList<>();
@@ -44,7 +61,7 @@ public class AdminController {
     }
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
-    @GetMapping("/{id}")
+    @GetMapping("/trips/{id}")
     public ResponseEntity<TripDTO> getTripByAdmin(@PathVariable Long id) {
         Optional<TripEntity> tripEntityOptional = tripsService.getTripById(id);
         if (tripEntityOptional.isPresent()) {
@@ -60,7 +77,7 @@ public class AdminController {
     }
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
-    @PatchMapping("/{id}")
+    @PatchMapping("/trips/{id}")
     public ResponseEntity<TripDTO> updateTripStatus(@PathVariable Long id,
                                                     @RequestBody ChangeTripStatusDTO tripStatusDTO) {
         Optional<TripEntity> optionalTrip = tripsService.getTripById(id);
