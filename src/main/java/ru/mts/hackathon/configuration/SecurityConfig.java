@@ -39,9 +39,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/api/admin/trips/**", "/test").hasAuthority(ADMIN)
                         .requestMatchers("/api/trips/**").hasAuthority(USER)
+                        .requestMatchers("/api/profile").authenticated()
                         .requestMatchers("/", "/error", "/csrf", "/swagger-ui.html", "/swagger-ui/**",
-                                "/v3/api-docs", "/v3/api-docs/**","/welcome",
-                                "/api/profile", "/auth/**").permitAll()
+                                "/v3/api-docs", "/v3/api-docs/**","/welcome", "/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(sessionManagement ->
