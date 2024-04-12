@@ -18,11 +18,9 @@ public class TripEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tr_seq")
     private long id;
 
-    @NotEmpty
     @Column(name = "owner_id")
     private Long ownerId;
 
-    @NotEmpty
     @Column(name = "boss_id")
     private Long bossId;
 

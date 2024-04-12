@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ru.mts.hackathon.domain.entities.StatusEnum;
 import ru.mts.hackathon.domain.entities.TripEntity;
 import ru.mts.hackathon.domain.entities.UserEntity;
 import ru.mts.hackathon.domain.repositories.JpaTripsRepository;
@@ -65,11 +66,12 @@ public class TempController {
         trip.setId(1);
         trip.setOwnerId(2L);
         trip.setBossId(1L);
-        trip.setStartDate(OffsetDateTime.now());
+        trip.setCreationDate(OffsetDateTime.now());
         trip.setStartDate(OffsetDateTime.now());
         trip.setEndDate(OffsetDateTime.now());
         trip.setDestination("Самара");
         trip.setGoal("На курорт");
+        trip.setStatus(StatusEnum.WAITING);
         tripsRepository.save(trip);
         return "Welcome to Hackathon";
     }
