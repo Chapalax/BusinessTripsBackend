@@ -35,7 +35,7 @@
   docker compose up -d
   ```
 
-## Running book-app using Maven & Npm
+## Running business trips service using Maven & Npm
 
 - **Business Trips Service**
 
