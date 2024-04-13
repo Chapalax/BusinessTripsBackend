@@ -17,9 +17,9 @@
   | `PATCH /api/admin/trips/{id}`                        | Yes     | `ADMIN`     |
   | `GET /api/profile`                                   | Yes     |             |
   | `GET /api/trips`                                     | Yes     | `USER`      |
-  | `POST /api/trips`                                    | Yes     | `USER`     |
-  | `GET /api/trips/{id}`                                | Yes     | `USER`       |
--   | `PATCH /api/trips/{id}`                              | Yes     | `USER`       |
+  | `POST /api/trips`                                    | Yes     | `USER`      |
+  | `GET /api/trips/{id}`                                | Yes     | `USER`      |
+  | `PATCH /api/trips/{id}`                              | Yes     | `USER`      |
 
 ## Prerequisites
 
