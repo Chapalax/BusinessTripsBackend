@@ -39,7 +39,7 @@
 
 - **Business Trips Service**
 
-    - Open a terminal and navigate to `sBusinessTripsBackend` folder
+    - Open a terminal and navigate to `BusinessTripsBackend` folder
 
     - Run the following `Maven` command to build and package the application in JAR
       ```
